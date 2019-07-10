@@ -10,7 +10,19 @@ Fork and clone this repo. On your fork, answer and commit the follow questions. 
 - Add two more countries to your dictionary.
 
 - Translate at least 3 of the capital names into another language.
+```swift
+var citiesDict: [String:String] = ["Italy":"Rome", "France":"Paris", "England":"London"]
 
+citiesDict["Spain"] = "Madrid"
+citiesDict["Germany"] = "Berlin"
+
+
+
+if let _ = citiesDict.updateValue("Londres", forKey: "England"), let _ = citiesDict.updateValue("Berlina", forKey: "Germany"), let _ = citiesDict.updateValue("Roma", forKey: "Italy") {
+}
+print(citiesDict)
+
+```
 
 ## Question 2
 
@@ -18,16 +30,60 @@ Fork and clone this repo. On your fork, answer and commit the follow questions. 
 
 - Using `someDict`, add together the values associated with "Three" and "Five" and print the result.
 
+```swift
+if let valThree = someDict["Three"], let valFive = someDict["Five"] {
+let sum = valThree + valFive
+print(sum)
+}
+```
+
 - Add values to the dictionary for the keys "Six" and "Seven".
+
+```swift
+someDict["Six"] = 13
+someDict["Seven"] = 18
+```
 
 - Make a key called `productUpToSeven` and set its value equal to the product of all the values.
 
+```swift
+var multValue = 1
+
+for i in someDict.values {
+multValue *= i
+}
+someDict["productUpToSeven"] = multValue
+
+print(someDict["productUpToSeven"])
+```
+
 - Make a key called `sumUpToSix` and set its value equal to the sum of the keys "One", "Two", "Three", "Four", "Five" and "Six".
 
+```swift
+var sumValue = 0
+
+for i in someDict.values where i != someDict["Seven"] {
+sumValue += i
+}
+someDict["sumUpToSix"] = sumValue
+print(someDict["sumUpToSix"])
+```
 - Remove the new keys made in the previous two steps
 
-- Add 2 to every value inside of `someDict`.
+```swift
+someDict.removeValue(forKey: "Six")
+someDict.removeValue(forKey: "Seven")
+```
 
+- Add 2 to every value inside of `someDict`.
+```swift
+var newDict = someDict
+
+for (key, value) in newDict {
+newDict[key] = value + 2
+}
+print(newDict)
+```
 
 ## Question 3
 
@@ -43,14 +99,38 @@ Create a variable that is explicitly typed as a dictionary that maps strings to 
 
 Using the dictionary created in the previous problem, do the following:
 
+```swift
+var authorScore: [String:Double] = ["Mark Twain": 8.9, "Nathaniel Hawthorne": 5.1, "John Steinbeck": 2.3, "C.S. Lewis": 9.9,  "Jon Krakauer": 6.1]
+```
+
 - Print out the floating-point score for “John Steinbeck”.
+```swift
+print(authorScore["John Steinbeck"])
+```
 
 - Add an additional author named “Erik Larson” with an assigned score of 9.2.
+```swift
+authorScore["Erik Larson"] = 9.2
+```
 
 - Write an if/else statement that compares the score of John Krakaur with Mark Twain. Print out the name of the author with the highest score.
+```swift
+if let krakaurScore = authorScore["Jon Krakauer"], let twainScore = authorScore["Mark Twain"] {
+if krakaurScore > twainScore {
+print("Jon Krakauer has the higher score")
+} else {
+print("Mark Twain has the higher score")
+}
+}
+```
 
 - Use a for-loop to iterate through the dictionary you created at the beginning of the problem, and print out the content in the form of key: value, one entry per line.
 
+```swift
+for i in authorScore {
+print(i)
+}
+```
 
 ## Question 4
 
@@ -88,9 +168,37 @@ var code = [
 
 var message = "hello world"
 ```
+```swift
+var encodedMessage = ""
+
+code[" "] = " "
+
+for i in message {
+for (key,value) in code {
+if String(i) == key {
+encodedMessage += value
+}
+}
+}
+print(encodedMessage)
+```
 
 You are also given an `encodedMessage` which contains only lowercase letters and spaces. Use the `code` dictionary to decode the message and print it.
 `var encodedMessage = "uijt nfttbhf jt ibse up sfbe"`
+
+```swift
+var decodedMessage = ""
+
+for i in encodedMessage {
+for (key, value) in code {
+if String(i) == value {
+decodedMessage += key
+}
+}
+}
+print(decodedMessage)
+```
+
 
 
 ## Question 5
@@ -121,9 +229,31 @@ var people: [[String:String]] = [
     ]
 ]
 ```
+```swift
+var firstNames: [String] = []
+
+for name in people {
+for (key, value) in name {
+if key == "firstName" {
+firstNames.append(value)
+}
+}
+}
+```
 
 Now, create an array of strings called `fullNames` that contains the values for `“firstName”` and `“lastName”` from the dictionary separated by a space.
+```swift
 
+var fullNames: [String] = []
+
+for fullName in people {
+if let firstName = fullName["firstName"], let lastName = fullName["lastName"] {
+let fullname = "\(firstName) \(lastName)"
+fullNames.append(fullname)
+}
+}
+print(fullNames)
+```
 
 ## Question 6
 
@@ -169,6 +299,7 @@ Print out the dictionary above in the following format:  **full name - score**
 You are given an array of integers. The frequency of a number is the number of times it appears in the array. Find out the frequency of each one.
 
 Print the numbers in ascending order followed by their frequency.
+
 
 
 ## Question 8
